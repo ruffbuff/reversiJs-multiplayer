@@ -1,4 +1,3 @@
-<!-- client/index.html -->
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -8,14 +7,69 @@
         <link rel="stylesheet" href="./styles.css" />
         <title>Othello</title>
     </head>
-    <body>
-        <div class="popup" id="noMovePopup">
-            <div class="popup-content">
-                <h2>No valid moves!</h2>
-                <p>You can't place a tile here.</p>
-            </div>
-        </div>
-        <div class="board"></div>
+    <body data-theme="forest-night">
+        <main class="layout">
+            <section class="panel">
+                <h1>Othello / Reversi</h1>
+
+                <label for="mode">Game mode</label>
+                <select id="mode">
+                    <option value="ai">Player vs AI</option>
+                    <option value="local">Local 1v1</option>
+                    <option value="online">Online 1v1</option>
+                </select>
+
+                <label for="theme">Design theme</label>
+                <select id="theme">
+                    <option value="forest-night">Forest Night</option>
+                    <option value="sunset-wood">Sunset Wood</option>
+                    <option value="neon-grid">Neon Grid</option>
+                    <option value="minimal-light">Minimal Light</option>
+                </select>
+
+                <div id="aiControls" class="group">
+                    <label for="difficulty">AI difficulty</label>
+                    <select id="difficulty">
+                        <option value="easy">Easy</option>
+                        <option value="normal">Normal</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                </div>
+
+                <div id="onlineControls" class="group hidden">
+                    <div class="online-head">
+                        <p class="section-title">Lobby</p>
+                        <button id="refreshRoomsBtn" type="button">Refresh</button>
+                    </div>
+                    <div id="roomsList" class="rooms-list"></div>
+
+                    <label for="roomIdInput">Room code (optional when create)</label>
+                    <input id="roomIdInput" maxlength="6" placeholder="ABC123" />
+                    <div class="row">
+                        <button id="createRoomBtn" type="button">Create room</button>
+                        <button id="joinRoomBtn" type="button">Join room</button>
+                    </div>
+                    <button id="leaveRoomBtn" type="button" class="ghost hidden">Leave room</button>
+                    <p class="small">Можно создать комнату, подождать друга, или войти в существующую из списка.</p>
+                </div>
+
+                <button id="restartBtn" type="button">Restart game</button>
+
+                <div class="scoreboard">
+                    <p><strong>Black:</strong> <span id="blackScore">2</span></p>
+                    <p><strong>White:</strong> <span id="whiteScore">2</span></p>
+                </div>
+
+                <p class="status" id="statusText">Black to move.</p>
+                <p class="meta" id="metaText"></p>
+            </section>
+
+            <section>
+                <div class="board" aria-label="Othello board"></div>
+            </section>
+        </main>
+
+        <script src="/socket.io/socket.io.js"></script>
         <script src="./script.js"></script>
     </body>
 </html>
